@@ -1,0 +1,111 @@
+# i hope you enjoy my game :)
+import time
+
+score = 0
+
+def intro():
+    print("You find yourself trapped in a haunted house.")
+    print("You must find a way to escape before it's too late...")
+    print("")
+
+def choose_path():
+    print("Which path will you choose?")
+    print("1. Go upstairs")
+    print("2. Enter the basement")
+    choice = input("Enter your choice (1 or 2): ")
+    print("")
+    if choice == "1":
+        score_choice(10)
+        print("you made a good choice! +10 points")# add points when good choice is made
+        upstairs()
+    elif choice == "2":
+        score_choice(5)
+        print("you made a good choice! +5 points")# add points when good coice is made
+        basement()
+    else:
+        print("Invalid choice. Try again.")
+        choose_path()
+
+def score_choice(points):
+    global score
+    score += points
+
+def upstairs():
+    print("As you climb the stairs, you hear creaking sounds.")
+    time.sleep(2)
+    print("Suddenly, a ghostly figure appears in front of you.")
+    time.sleep(2)
+    print("What will you do?")
+    print("1. Fight the ghost")
+    print("2. Flee downstairs")
+    choice = input("Enter your choice (1 or 2): ")
+    print("")
+    if choice == "1":
+        print("You foolishly try to fight the ghost.")
+        time.sleep(2)
+        print("The ghost overwhelms you, and you die a horrible death.")
+        score_choice(-20)
+        print("you made a bad choice× -20 points")# removes points on bad decisions made
+        ending("death")#lol you died.bot
+    elif choice == "2":
+        print("You quickly run downstairs and find yourself in the basement.")
+        time.sleep(2)
+        basement()
+    else:
+        print("Invalid choice. Try again.")
+        upstairs()
+
+def basement():
+    print("You find yourself surrounded by darkness.")
+    time.sleep(2)
+    print("You see a glimmer of light in the corner of the room.")
+    time.sleep(2)
+    print("What will you do?")
+    print("1. Investigate the light")
+    print("2. Look for another exit")
+    choice = input("Enter your choice (1 or 2): ")
+    print("")
+    if choice == "1":
+        print("You cautiously approach the light and discover a hidden door.")
+        time.sleep(2)
+        print("You escape through the hidden door and make it out alive!")
+        score_choice(30)
+        print("you made a good choice! +30 points")#adds points on good decision made
+        ending("survive")
+    elif choice == "2":
+        print("You search for another exit, but it's too late.")
+        time.sleep(2)
+        print("A monstrous creature emerges from the darkness and devours you.")
+        score_choice(-10)
+        print("you made a bad choice× -10 points")#removes points on bad decision made
+        ending("death")#lol you died.bot
+    else:
+        print("Invalid choice. Try again.")
+        basement()
+
+def ending(result):
+    global score
+    print("")
+    if result == "survive":
+        print("Congratulations! You made it out alive.")
+    elif result == "death":
+        print("Game over. you died a horrible death.")
+    print("Your score:", score)
+    print("Thank you for playing!")
+    play_again = input("Do you want to play again? (yes/no): ")
+    if play_again.lower() == "yes":
+        print("")
+        reset_game()
+    else:
+        print("Goodbye!")
+
+def reset_game():
+    global score
+    score = 0
+    start_game()
+
+def start_game():
+    intro()
+    choose_path()
+
+start_game()
